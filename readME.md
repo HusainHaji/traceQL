@@ -19,17 +19,17 @@ TraceQL ingests structured events from multiple services and reconstructs **end-
 ---
 
 ## Architecture Overview
-
+```bash
 Generator → API → SQLite
 ↓
 Search + Trace APIs
 ↓
 Next.js Frontend
-
+```
 ---
 
 ## File Structure
-
+```bash
 traceql/
 ├── backend/
 │ ├── server.js # Fastify API
@@ -44,7 +44,7 @@ traceql/
 │ ├── globals.css
 │ ├── layout.tsx
 │ └── package.json
-
+```
 ---
 
 ## Tech Stack
