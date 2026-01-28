@@ -15,7 +15,7 @@ type EventRow = {
   tags?: Record<string, string>;
 };
 
-const API = "http://127.0.0.1:5050";
+const API = process.env.NEXT_PUBLIC_API_BASE || "http://127.0.0.1:5050";
 
 export default function Home() {
   const [items, setItems] = useState<EventRow[]>([]);

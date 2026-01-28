@@ -8,7 +8,19 @@ It simulates how modern systems track requests across APIs, workers, and databas
 
 ## What TraceQL Does
 
-TraceQL ingests structured events from multiple services and reconstructs **end-to-end request traces** using `traceId`, `spanId`, and `parentSpanId`.
+In real distributed systems, a single request often spans:
+
+-an API gateway
+-background workers
+-database layer
+
+TraceQL shows how those events are correlated using traceId, spanId, and parentSpanId, allowing developers to:
+
+-follow a request end to end
+-inspect latency per service
+-debug failures across system boundaries
+
+This project focuses on observability mechanics, not production scale.
 
 ### Core Features
 - Live event streaming
@@ -32,18 +44,23 @@ Next.js Frontend
 ```bash
 traceql/
 ├── backend/
-│ ├── server.js # Fastify API
-│ ├── db.js # SQLite schema and queries
-│ ├── generate.js # Event generator
-│ └── package.json
+│   ├── server.js        # Fastify API (ingest, search, stream)
+│   ├── db.js            # SQLite schema + indexes
+│   ├── generate.js      # Synthetic trace generator
+│   ├── Dockerfile
+│   └── package.json
 │
 ├── frontend/
-│ ├── app/
-│ │ ├── page.tsx
-│ │ └── trace/[traceId]/page.tsx
-│ ├── globals.css
-│ ├── layout.tsx
-│ └── package.json
+│   ├── app/
+│   │   ├── page.tsx     # Live log + search UI
+│   │   └── trace/[id]/  # Trace reconstruction view
+│   ├── globals.css
+│   ├── Dockerfile
+│   └── package.json
+│
+├── docker-compose.yml   # Full stack orchestration
+└── README.md
+
 ```
 ---
 
@@ -60,6 +77,23 @@ traceql/
 - Tailwind CSS
 
 ---
+## Running with Docker
+This is the intended way to run TraceQL.
+Install dependencies:
+```bash
+docker compose up --build
+```
+Then open:
+```bash
+http://localhost:3000
+```
+This will start:
+
+-the backend API
+-the event generator
+-the frontend UI
+
+No local installs required beyond Docker.
 
 ## Running Locally
 

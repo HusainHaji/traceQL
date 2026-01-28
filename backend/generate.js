@@ -1,9 +1,27 @@
-async function post(evt) {
-  await fetch("http://127.0.0.1:5050/ingest", {
+const API_BASE = process.env.API_BASE || "http://127.0.0.1:5050";
+
+/*async function post(evt) {
+  await fetch(`${API_BASE}/ingest`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(evt)
   });
+}*/
+
+async function post(evt) {
+  for (;;) {
+    try {
+      const res = await fetch(`${API_BASE}/ingest`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(evt),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return;
+    } catch (e) {
+      await new Promise((r) => setTimeout(r, 500));
+    }
+  }
 }
 
 function traceId() { return Math.random().toString(16).slice(2); }

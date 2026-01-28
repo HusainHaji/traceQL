@@ -1,0 +1,21 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Next.js
+frontend/.next/
+frontend/out/
+
+# Local env
+.env
+.env.local
+
+# SQLite
+*.db
+*.db-shm
+*.db-wal
+
+# Editor/OS
+.vscode/
+.DS_Store
+Thumbs.db
